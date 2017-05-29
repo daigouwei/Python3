@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env
 # -*- coding:utf-8 -*-
 
 import urllib.request
@@ -117,5 +117,3 @@ for num in range(1, int(pageNum)+1):
     filee.writeFile(content)
 filee.closeFile()
 print('写入任务完成，请尽情欣赏！')
-
-

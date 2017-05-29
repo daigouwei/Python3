@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env
 # -*- coding: utf-8 -*-
 
 '''1
@@ -55,7 +55,7 @@ print("m.expand(r'\g \g\g'):", m.expand(r'\2 \1\3'))
 '''
 
 '''3
-import re 
+import re
 
 pattern = re.compile(r'world')
 match = re.search(pattern, 'hello world!')
@@ -103,7 +103,7 @@ print(re.sub(pattern, func, s))
 
 '''8
 import re
- 
+
 pattern = re.compile(r'(\w+) (\w+)')
 s = 'i say, hello world!'
 print(re.subn(pattern,r'\2 \1', s))
