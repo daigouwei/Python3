@@ -20,8 +20,8 @@ class DB:
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1'
         }
-        self.username = 'yourmail'
-        self.password = 'yourpassword'
+        self.username = input('用户名： ')
+        self.password = input('密码： ')
         self.post = {
             'redir': 'https://www.douban.com',
             'form_email': self.username,
