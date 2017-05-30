@@ -8,3 +8,7 @@ baidutieba.py  输入百度贴吧帖子网址，爬取相关帖子内容，并�
 douban.py  通过输入账号和密码，登录豆瓣，进行后续信息的抓取。主要是解决一个人工解析验证码的过程。bug：有时候
            网页被限制登录，可能是代理的问题，有待进一步优化。
 yzu.py  通过输入账号和密码，登录研究生网站。主要是解决一个插入的js动态验证码的解释过程。
+requestss.py  主要用来熟悉模块requests的用法。
+phantomjss.js  主要熟悉phantomjs的用法，需要使用phantom phantomjss.js来运行。该模块主要是模拟浏览器进行运行。
+selenium.py  主要用来熟悉selenium的用法，配合chrome可以实现输入点击等类似人为的操作。配合phantom使用可以实现
+             动态网页的解析，后期可以用来解决验证码问题，最终可以实现一键申请加班。
