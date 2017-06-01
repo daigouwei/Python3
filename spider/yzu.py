@@ -1,53 +1,56 @@
 #!/usr/bin/env
-# -*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 
-import urllib.request
-import urllib.parse
-import urllib.error
-import http.cookiejar
-import re
+# import time
+import requests
+from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
 
-class YZU:
-    def __init__(self):
-        self.loginURL = 'http://yjsglxt.yzu.edu.cn/pyxx/login.aspx'
-        self.loginHeaders = {
-            'Host':'yjsglxt.yzu.edu.cn',
-            'Origin':'http://yjsglxt.yzu.edu.cn',
-            'Referer':'http://yjsglxt.yzu.edu.cn/pyxx/login.aspx',
-            'Upgrade-Insecure-Requests':'1',
-            'User-Agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.110 Mobile Safari/537.36'
-        }
-        self.username = 'M14790'
-        self.password = '85477284'
-        self.post = {
-            '__VIEWSTATE':'/wEPDwUENTM4MWQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFEmN0bDAwJEltYWdlQnV0dG9uMabuLwAAiYKU+1REmq/s3lojHl/Ytvy5hLayiQn8y3hy',
-            'ctl00$txtusername':self.username,
-            'ctl00$txtpassword':self.password,
-            'ctl00$txtyzm':'2144',
-            'ctl00$ImageButton1.x':'32',
-            'ctl00$ImageButton1.y':'28'
-        }
-        self.postData = urllib.parse.urlencode(self.post)
-        self.cookie = http.cookiejar.LWPCookieJar()
-        self.cookieHandler = urllib.request.HTTPCookieProcessor(self.cookie)
-        self.opener = urllib.request.build_opener(self.cookieHandler)
+username = input('请输入用户名：')
+password = input('请输入密码：')
+url = 'http://yjsglxt.yzu.edu.cn/pyxx/login.aspx'
+broswer = webdriver.PhantomJS()
+broswer.set_window_size(900, 900)#不能跟Chrome一样全屏，原因未知。
 
-    def needIdenCode(self):
-        request = urllib.request.Request(self.loginURL, self.postData.encode(encoding='utf-8'), self.loginHeaders)
-        response = self.opener.open(request)
-        content = response.read().decode('utf-8')
-        status = response.getcode()
-        pattern = re.compile(r'<img alt=".*?" id="myCode" style="cursor:pointer;" onclick="change.*?" src="(.*?)">', re.S)
-        result = re.search(pattern, content)
-        if result:
-            print('请输入验证码')
+# 使用Chrome截图会是黑色图，可以全屏，原因未知。
+# broswer = webdriver.Chrome()
+# broswer.maximize_window()
 
+broswer.get(url)
 
+# time.sleep(10)
+# broswer.implicitly_wait(30)
 
+broswer.save_screenshot('yzm.png')
+elemUsername = broswer.find_element_by_name('ctl00$txtusername')
+elemUsername.send_keys(username)
+elemPassword = broswer.find_element_by_name('ctl00$txtpassword')
+elemPassword.send_keys(password)
+elemYzm = broswer.find_element_by_name('ctl00$txtyzm')
 
-        print(content)
-        print(status)
+# 由于yzu的验证码是纯动态的，就算拿到具体时间的验证码网址，会发现两次访问同一个网址验证码也是不一样的，所以注释方法不行。
+# yzmLink = broswer.find_element_by_id('myCode').get_attribute('src')
+# yzmRe = requests.get(yzmLink)
+# gifData = yzmRe.content.split(b'\r\n', 1)
+# with open('yzm.gif', 'wb') as f:
+    # f.write(gifData[0])
 
-yzu = YZU()
-yzu.needIdenCode()
+yzm = input('请打开验证码图yzm.png，输入验证码：')
+elemYzm.send_keys(yzm)
+elemAccount = broswer.find_element_by_name('ctl00$ImageButton1')
+elemAccount.click()
+# print(broswer.page_source)
+broswer.switch_to_frame('PageFrame')#有深层frame需要切换frame抓取
+# print(broswer.page_source)
+photoUrl = broswer.find_element_by_id('imgPhoto').get_attribute('src')
+photoRe = requests.get(photoUrl)
+photoData = photoRe.content
+with open('photo.jpg', 'wb') as f:
+    f.write(photoData)
+
+broswer.quit()
+
 
