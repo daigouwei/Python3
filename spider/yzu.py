@@ -15,11 +15,11 @@ username = input('请输入用户名：')
 password = input('请输入密码：')
 url = 'http://yjsglxt.yzu.edu.cn/pyxx/login.aspx'
 browser = webdriver.PhantomJS()
-# browser.set_window_size(900, 900)#不能跟Chrome一样全屏，原因未知。
+browser.set_window_size(900, 900)#不能跟Chrome一样全屏，原因未知。
 
 # 使用Chrome截图会是黑色图，可以全屏，原因未知。在mac上没有问题。
 # browser = webdriver.Chrome()
-browser.maximize_window()
+# browser.maximize_window()
 
 browser.get(url)
 
@@ -49,13 +49,10 @@ browser.switch_to_frame('PageFrame')#有深层frame需要切换frame抓取
 # print(browser.page_source)
 soup = BeautifulSoup(browser.page_source, 'lxml')
 soupStr = soup.find_all(style='font-weight:bold;')
-print(soupStr)
-# print(soupStr[0])
-# soup2 = BeautifulSoup(str( soup1Str[0] ), 'lxml')
-# print(soup2.span.string)
+#对得到的soupStr进行类型转换成str，用正则表达式去除<br/>，才能再次使用BeautifulSoup进行处理
+soupStrHandle = re.sub(re.compile('<br/>'),'',str(soupStr))#.strip()可加可不加
+print(BeautifulSoup(soupStrHandle, 'lxml').span.string)
 #下面两行用Chrome是可以直接下载图片的，在PhantomJS下没任何反应
 photoUrl = browser.find_element_by_id('imgPhoto').get_attribute('src')
 browser.get(photoUrl)
 browser.quit()
-
-
