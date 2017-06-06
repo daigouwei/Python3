@@ -1,5 +1,6 @@
 该目录下文件都是基于Python3.5解释器进行编码。
 主要是爬虫的基本代码和实战代码。
+
 各文件功能描述如下：
 urllibb.py  url相关的基本操作。
 regexp.py  正则表达式相关的基础操作。
@@ -16,3 +17,4 @@ phantomjss.js  主要熟悉phantomjs的用法，需要使用phantom phantomjss.j
 seleniumm.py  主要用来熟悉selenium的用法，配合chrome可以实现输入点击等类似人为的操作。配合phantom使用可以实现
               动态网页的解析，后期可以用来解决验证码问题，最终可以实现一键申请加班。
 beautifulsoupp.py  处理html，解析需要的数据信息。一定程度上可以简化正则表达式的构成。
+overtimedatahandlee.py  处理加班时间数据，满足周六日全算，平时只算晚间加班时间。
