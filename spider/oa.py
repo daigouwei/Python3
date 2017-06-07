@@ -12,26 +12,25 @@ username = input('input your username:')
 password = input('input your password:')
 overtimeReason = input('input your overtimeReason:')
 
-browser = webdriver.Chrome()
+browser = webdriver.PhantomJS()
+# browser = webdriver.Chrome()
 browser.get(url)
-# print(browser.page_source)
 
-# denglu zhanghao
+#登录账号，后期还需要对输错密码进行处理
 browser.find_element_by_name('tbUserName').send_keys(username)
 browser.find_element_by_name('tbPassword').send_keys(password)
 browser.find_element_by_name('btnLogin').click()
 # print(browser.page_source)
 
-# qiehuan frame dianjijinru kaoqintongji
+#切换frame，点击进入考勤统计
 browser.switch_to_frame('contents')
 browser.find_element_by_id('a1').click()
 
-# qiehuandao gen frame ranhou qiehuandao main frame
+#切换到main frame
 browser.switch_to_default_content()
 browser.switch_to_frame('main')
-# # browser.find_element_by_id('RadioButtonPREV_MONTH').click() # dianji xuanzhe shangyuexinxi
 
-# tiquwangyexin  date week firsttime lasttime
+#提取date week firsttime lasttime信息并进行处理
 soup = BeautifulSoup(browser.page_source, 'lxml')
 soupStr = soup.find_all(id="GridViewPUNCH_CARD_INFO")
 overtimeData = re.findall(re.compile(r'<span id="GridViewPUNCH_CARD_INFO_ctl.*?_lblKQ_DATE">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_lblWEEK">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_LabelPUNCH_CARD_FIRST_TIME_CAL">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_LabelPUNCH_CARD_LAST_TIME_CAL">(.*?)</span>', re.S), str(soupStr))
@@ -67,19 +66,17 @@ for sf in overtimeData:
             overtimeDataHandle.append(es)
 print(overtimeDataHandle)
 
-# qiehui contents frame xuanze dianji jiabanshenqing
+#切换frame点击进入加班申请
 browser.switch_to_default_content()
 browser.switch_to_frame('contents')
 browser.find_element_by_id('a4').click()
 
-# qiehuandao main frame, jinxingjuti jiabanshenqingcaozuo
+#进行具体加班申请操作，解析日历等
 browser.switch_to_default_content()
 browser.switch_to_frame('main')
-# browser.find_element_by_id('btnNew').click() #dianji xinjianshenqing anniu  diyicibuyongdianji
-# browser.find_element_by_name('TextBoxREASON').send_keys(overtimeReason) #jiabanshiyou
-browser.find_element_by_id('TextBoxDATE_FROM').click() #qishiriqi dianji
-browser.switch_to_frame('CalFrame') #qiehuan frame jinrurili
-# # browser.find_element_by_xpath(r'//img[@src="prev.gif"]').click() #xuanzhongshanggeyue jiantou dianji
+browser.find_element_by_id('TextBoxDATE_FROM').click() #点击起始日期
+browser.switch_to_frame('CalFrame') #切换frame进入日历
+browser.find_element_by_xpath(r'//img[@src="prev.gif"]').click() #点击日历中上个月箭头
 soup = BeautifulSoup(browser.page_source, 'lxml')
 calendarLists = soup.find_all('td', bgcolor='white')
 # print(calendarLists)
