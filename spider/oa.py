@@ -97,8 +97,8 @@ for qop in overtimeDataHandle:
         browser.switch_to_frame('main')
         selectTimeFrom = Select(browser.find_element_by_name('DropDownListTIME_FROM'))
         selectTimeFrom.select_by_visible_text(qop[1])
-        selectTimeFrom = Select(browser.find_element_by_name('DropDownListTIME_TO'))
-        selectTimeFrom.select_by_visible_text(qop[2])
+        selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
+        selectTimeTo.select_by_visible_text(qop[2])
         browser.find_element_by_id('btnAddLine').click()  #添加明细
         browser.find_element_by_id('btnPost').click()  #提交
         # browser.find_element_by_id('btnCancel').click()  #取消申请
@@ -116,8 +116,8 @@ for qop in overtimeDataHandle:
         browser.switch_to_frame('main')
         selectTimeFrom = Select(browser.find_element_by_name('DropDownListTIME_FROM'))
         selectTimeFrom.select_by_visible_text(qop[1])
-        selectTimeFrom = Select(browser.find_element_by_name('DropDownListTIME_TO'))
-        selectTimeFrom.select_by_visible_text(qop[2])
+        selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
+        selectTimeTo.select_by_visible_text(qop[2])
         browser.find_element_by_id('btnAddLine').click()  #添加明细
         browser.find_element_by_id('btnPost').click()  #提交
         # browser.find_element_by_id('btnCancel').click()  #取消申请
