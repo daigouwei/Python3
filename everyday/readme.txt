@@ -8,4 +8,7 @@ day2.py: 作为 Apple Store App 独立开发者，你要搞限时促销，为你
 day3.py: 作为 Apple Store App 独立开发者，你要搞限时促销，为你的应用生成激活码（或者优惠券），使用 Python 生成 200 个激活码（或者优惠券），并将激活码保存到 Redis 非关系型数据库中。
 第0003题
 day4.py: 任一个英文的纯文本文件，统计其中的单词出现的个数。
-
+第0010题
+day5.py: 使用Python生成字母验证码图片。
+第0011题
+day6.py: 敏感词文本文件 filtered_words.txt，当用户输入敏感词语时，则打印出 Freedom，否则打印出 Human Rights。
