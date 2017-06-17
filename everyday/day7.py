@@ -1,6 +1,8 @@
 #!/usr/bin/env
 #-*- coding:utf-8 -*-
 
+# 敏感词文本文件 filtered_words.txt，当用户输入敏感词语时，全部用*屏蔽，不敏感的词不屏蔽。
+
 import re
 
 def testValue():

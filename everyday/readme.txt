@@ -12,3 +12,5 @@ day4.py: 任一个英文的纯文本文件，统计其中的单词出现的个�
 day5.py: 使用Python生成字母验证码图片。
 第0011题
 day6.py: 敏感词文本文件 filtered_words.txt，当用户输入敏感词语时，则打印出 Freedom，否则打印出 Human Rights。
+第0012题
+day7.py: 敏感词文本文件 filtered_words.txt，当用户输入敏感词语时，全部用*屏蔽，不敏感的词不屏蔽。
