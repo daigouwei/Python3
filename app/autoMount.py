@@ -10,9 +10,9 @@ class Mount:
         self.devDict = {}
 
     def getDeviceNode(self):
-        diskList = subprocess.check_output(['diskutil', 'list']).split('\n')
+        diskList = subprocess.check_output(['diskutil', 'list']).decode().split('\n')
         for info in diskList:
-            if re.search(re,compile(r'.*?NTFS.*?', re.S), info):
+            if re.search(re.compile(r'.*?NTFS.*?', re.S), info):
                 infoList = info.split()
                 diskPath = r'/Volumes/'+infoList[2]
                 devNode = r'/dev/'+infoList[5]
@@ -20,22 +20,22 @@ class Mount:
 
     def mountNtfs(self):
         if not self.devDict:
-            print('No ntfs filesystem found...')
+            print('没有发现移动硬盘或U盘...')
             return
         for diskPath in self.devDict:
             devNode = self.devDict[diskPath]
             if os.path.isdir(diskPath):
                 subprocess.check_output(['hdiutil', 'detach', diskPath])
-            print('mkdir %s' % diskPath)
-            subprocess.check_output(['mkdir', diskPath])
+            print('sudo mkdir %s' % diskPath)
+            subprocess.check_output(['sudo', 'mkdir', diskPath])
             print('sudo mount_ntfs -o rw,nobrowse %s %s' % (devNode, diskPath))
             subprocess.check_output(['sudo',
                                     'mount_ntfs',
                                     '-o',
                                     'rw,nobrowse',
                                     devNode, diskPath])
-            subprocess.check_output(['cd', diskPath])
-            subprocess.check_output(['open', r'.'])
+            subprocess.check_output(['open', diskPath])
+        print('大吉大利，今晚吃鸡...')
 
 if __name__ == '__main__':
     mount = Mount()
