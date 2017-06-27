@@ -28,10 +28,15 @@ def log(func):
     return wrapper
 
 from docopt import docopt
+from stations import stations
 @log
 def commandLineInterface():
     arguments = docopt(__doc__)
     # print(arguments)
+    fromStation = stations.get(arguments['<from>'])
+    toStation = stations[arguments['<to>']]
+    date = arguments['<date>']
+    print(fromStation, toStation, date)
 
 
 
@@ -46,5 +51,5 @@ def commandLineInterface():
 
 
 
-# if __name__ == '__main__':
-    # commandLineInterface()
+if __name__ == '__main__':
+    commandLineInterface()
