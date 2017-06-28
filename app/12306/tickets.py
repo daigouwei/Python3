@@ -38,17 +38,33 @@ def getKey(stations, value):
 @log
 def handleData(data):
     newData = []
+    temp = []
     for sf in data:
         newData.append(list(sf))
     for sf in newData:
+        del(sf[0])
+    for sf in newData:
         sf[1] = getKey(stations, sf[1])[0]
         sf[2] = getKey(stations, sf[2])[0]
-        sf[5] = sf[5].replace(':','h')+'min'
+        sf[5] = sf[5].replace(':','小时')+'分钟'
+        for es in range(11):
+            if sf[es]=='':
+                sf[es]='--'
+    for sf in newData:
+        temp.append(sf[10])
+        temp.append(sf[9])
+        temp.append(sf[6])
+        temp.append(sf[8])
+        temp.append(sf[7])
+        for es in range(6,11):
+            sf[es] = temp[es-6]
+        del temp[:]
+    # print(newData)
     return newData
 
 @log
 def prettyPrint(data):
-    headline = '1 2 3 4 5 6 7 8 9 10 11 12'.split()
+    headline = '车次 出发站 到达站 出发时间 到达时间 历时 一等 二等 软座 硬座 无座'.split()
     pt = PrettyTable()
     pt._set_field_names(headline)
     for sf in data:
@@ -61,7 +77,7 @@ def getWebData(date, fromStation, toStation):
     requests.packages.urllib3.disable_warnings()
     response = requests.get(url, verify=False)
     # print(response.text)
-    pattern = re.compile(r'\|预订\|.*?\|([A-Z][0-9]+)\|.*?\|.*?\|([A-Z]+)\|([A-Z]+)\|(\d{2}:\d{2})\|(\d{2}:\d{2})\|(\d{2}:\d{2})\|.*?\|\d{8}\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|([\u4e00-\u9fa5]|[0-9]+|)\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|.*?\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|([\u4e00-\u9fa5]|[0-9]+|)\|([\u4e00-\u9fa5]|[0-9]+|)\|', re.S)
+    pattern = re.compile(r'\|(预订|23:00-06:00系统维护时间)\|.*?\|([A-Z][0-9]+|[0-9]+)\|.*?\|.*?\|([A-Z]+)\|([A-Z]+)\|(\d{2}:\d{2})\|(\d{2}:\d{2})\|(\d{2}:\d{2})\|.*?\|\d{8}\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|.*?\|.*?\|([\u4e00-\u9fa5]|[0-9]+|)\|([\u4e00-\u9fa5]|[0-9]+|)\|([\u4e00-\u9fa5]|[0-9]+|)\|', re.S)
     data = pattern.findall(response.text)
     # print(data)
     return data
