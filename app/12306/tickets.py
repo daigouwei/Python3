@@ -18,22 +18,36 @@ Example:
     tickets.py -dg 成都 南京 2016-10-10
 """
 
-import logging
+# import logging
 from docopt import docopt
 from stations import stations
 import requests
 import re
 from prettytable import PrettyTable
+from colorama import init,Fore
 
 def log(func):
     def wrapper(*argv, **kw):
-        logging.warn(func.__name__)
+        # logging.warn(func.__name__)
         return func(*argv, **kw)
     return wrapper
 
 @log
 def getKey(stations, value):
     return [k for k,v in stations.items() if value == v]
+
+@log
+def drawColor(data, color):
+    if color == 'red':
+        return Fore.RED + data + Fore.RESET
+    elif color == 'blue':
+        return Fore.BLUE + data + Fore.RESET
+    elif color == 'yellow':
+        return Fore.YELLOW + data + Fore.RESET
+    elif color == 'green':
+        return Fore.GREEN + data + Fore.RESET
+    elif color == 'cyan':
+        return Fore.CYAN + data + Fore.RESET
 
 @log
 def handleData(data):
@@ -68,6 +82,15 @@ def prettyPrint(data):
     pt = PrettyTable()
     pt._set_field_names(headline)
     for sf in data:
+        # for es in range(1,5):
+            # sf[es] = drawColor(sf[es], 'red')
+        sf[0] = drawColor(sf[0], 'blue')
+        sf[1] = drawColor(sf[1], 'red')
+        sf[2] = drawColor(sf[2], 'green')
+        sf[3] = drawColor(sf[3], 'red')
+        sf[4] = drawColor(sf[4], 'green')
+        sf[5] = drawColor(sf[5], 'yellow')
+        # sf[7] = drawColor(sf[7], 'red')
         pt.add_row(sf)
     print(pt)
 
@@ -91,6 +114,7 @@ def commandLineInterface():
     date = arguments['<date>']
     # print(fromStation, toStation, date)
     newData = handleData(getWebData(date, fromStation, toStation))
+    init()
     prettyPrint(newData)
 
 
