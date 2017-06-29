@@ -33,8 +33,8 @@ def log(func):
     return wrapper
 
 @log
-def getKey(stations, value):
-    return [k for k,v in stations.items() if value == v]
+def getKey(dic, value):
+    return [k for k,v in dic.items() if value == v]
 
 @log
 def drawColor(data, color):
@@ -50,21 +50,29 @@ def drawColor(data, color):
         return Fore.CYAN + data + Fore.RESET
 
 @log
-def handleData(data):
+def handleData(data, option):
     newData = []
+    lastNewData = []
     temp = []
     for sf in data:
         newData.append(list(sf))
     for sf in newData:
         del(sf[0])
-    for sf in newData:
+    if option == '':
+        lastNewData = newData
+    else:
+        for sf in newData:
+            if sf[0][0].lower() in option:
+                lastNewData.append(sf)
+    # print(lastNewData)
+    for sf in lastNewData:
         sf[1] = getKey(stations, sf[1])[0]
         sf[2] = getKey(stations, sf[2])[0]
         sf[5] = sf[5].replace(':','小时')+'分钟'
         for es in range(11):
             if sf[es]=='':
                 sf[es]='--'
-    for sf in newData:
+    for sf in lastNewData:
         temp.append(sf[10])
         temp.append(sf[9])
         temp.append(sf[6])
@@ -73,8 +81,8 @@ def handleData(data):
         for es in range(6,11):
             sf[es] = temp[es-6]
         del temp[:]
-    # print(newData)
-    return newData
+    # print(lastNewData)
+    return lastNewData
 
 @log
 def prettyPrint(data):
@@ -113,16 +121,18 @@ def commandLineInterface():
     toStation = stations[arguments['<to>']]
     date = arguments['<date>']
     # print(fromStation, toStation, date)
-    newData = handleData(getWebData(date, fromStation, toStation))
+    options = ''.join(getKey(arguments, True))
+    # print(type(options))
+    # print(options)
     init()
-    prettyPrint(newData)
-
-
-
+    lastNewData = handleData(getWebData(date, fromStation, toStation), options)
+    return lastNewData
 
 
 
 
 
 if __name__ == '__main__':
-    commandLineInterface()
+    lastNewData = commandLineInterface()
+    prettyPrint(lastNewData)
+
