@@ -3,7 +3,7 @@
 
 """命令行火车票查看器
 Usage:
-    tickets.py [-gdtkz] <from> <to> <date>
+    tickets [-gdtkz] <from> <to> <date>
 
 Options:
     -h,--help   显示帮助菜单
@@ -14,8 +14,8 @@ Options:
     -z          直达
 
 Example:
-    tickets.py 北京 上海 2016-10-10
-    tickets.py -dg 成都 南京 2016-10-10
+    tickets 北京 上海 2016-10-10
+    tickets -dg 成都 南京 2016-10-10
 """
 
 # import logging
@@ -126,13 +126,11 @@ def commandLineInterface():
     # print(options)
     init()
     lastNewData = handleData(getWebData(date, fromStation, toStation), options)
-    return lastNewData
-
+    prettyPrint(lastNewData)
 
 
 
 
 if __name__ == '__main__':
-    lastNewData = commandLineInterface()
-    prettyPrint(lastNewData)
+    commandLineInterface()
 
