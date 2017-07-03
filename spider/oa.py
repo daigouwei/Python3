@@ -5,16 +5,16 @@ import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-# import time
+import time
 
-url = input('input your url:')
-username = input('input your username:')
-password = input('input your password:')
-overtimeReason = input('input your overtimeReason:')
+url = http://172.26.10.41/Programs/login/login.aspx
+username = input('请输入你的工号: ')
+password = input('请输入你的密码: ')
+overtimeReason = input('请输入你的加班事由: ')
 
 #登录账号，后期还需要对输错密码进行处理
-browser = webdriver.PhantomJS()
-# browser = webdriver.Chrome()
+# browser = webdriver.PhantomJS()
+browser = webdriver.Chrome()
 browser.get(url)
 browser.find_element_by_name('tbUserName').send_keys(username)
 browser.find_element_by_name('tbPassword').send_keys(password)
@@ -26,6 +26,7 @@ browser.switch_to_frame('contents') #切换frame，点击进入考勤统计
 browser.find_element_by_id('a1').click()
 browser.switch_to_default_content()
 browser.switch_to_frame('main') #切换到main frame,开始提取信息
+browser.find_element_by_id('RadioButtonPREV_MONTH').click()  #选中上月
 soup = BeautifulSoup(browser.page_source, 'lxml')
 soupStr = soup.find_all(id="GridViewPUNCH_CARD_INFO")
 overtimeData = re.findall(re.compile(r'<span id="GridViewPUNCH_CARD_INFO_ctl.*?_lblKQ_DATE">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_lblWEEK">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_LabelPUNCH_CARD_FIRST_TIME_CAL">(.*?)</span>.*?<span id="GridViewPUNCH_CARD_INFO_ctl.*?_LabelPUNCH_CARD_LAST_TIME_CAL">(.*?)</span>', re.S), str(soupStr))
@@ -73,7 +74,8 @@ soup = BeautifulSoup(browser.page_source, 'lxml')
 calendarLists = soup.find_all('td', bgcolor='white')
 calendarDict = {}
 for calendarList in calendarLists:
-    data = re.findall(re.compile(r'<td bgcolor="white" class="dt" id="(.*?)" style="font-weight: bold; cursor: pointer; color:.*?;">(.*?)</td>', re.S), str(calendarList))
+    # data = re.findall(re.compile(r'<td bgcolor="white" class="dt" id="(.*?)" style="font-weight: bold; cursor: pointer; color:.*?; ">(.*?)</td>', re.S), str(calendarList)) #这是PhantomJS的正则
+    data = re.findall(re.compile(r'<td bgcolor="white" class="dt" id="(.*?)" style="font-weight: bold; cursor: pointer; color:.*?;">(.*?)</td>', re.S), str(calendarList)) #这是chrome的正则，相差最后一个空格
     calendarDict[data[0][1]] = data[0][0]
 # print(calendarDict)
 
@@ -100,7 +102,9 @@ for qop in overtimeDataHandle:
         selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
         selectTimeTo.select_by_visible_text(qop[2])
         browser.find_element_by_id('btnAddLine').click()  #添加明细
+        time.sleep(5)  #延时，防止提交按钮丢失
         browser.find_element_by_id('btnPost').click()  #提交
+        print('%s号加班申请完成...' % (qop[0]))
         # browser.find_element_by_id('btnCancel').click()  #取消申请
     else:
         firstOvertimeFlag = False
@@ -119,7 +123,9 @@ for qop in overtimeDataHandle:
         selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
         selectTimeTo.select_by_visible_text(qop[2])
         browser.find_element_by_id('btnAddLine').click()  #添加明细
+        time.sleep(5)  #延时，防止提交按钮丢失
         browser.find_element_by_id('btnPost').click()  #提交
+        print('%s号加班申请完成...' % (qop[0]))
         # browser.find_element_by_id('btnCancel').click()  #取消申请
 
 #退出浏览器
