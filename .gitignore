@@ -6,3 +6,4 @@ venv.py3
 *.egg-info
 dist
 build
+remove.txt
