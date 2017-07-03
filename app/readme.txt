@@ -4,6 +4,9 @@ smalltool/automount.py: 用来在mac电脑上自动加载NTFS格式移动硬盘�
 smalltool/modifier.py: 主要用来自动修改混乱的N集电视剧文件名。需要输入文件夹的绝对路径，然后再输入电视剧的名字，最后确定输入音频格式。
 12306: 主要用来实现火车票的终端查询功能。使用12306 -dg 南京 上海 2017-07-07指令运行。
     12306/drawstation.py:  用来获取各个站台中文对应编码重新定向为文件stations.py。
-    12306/stations.py:	生成的站台编码文件，需要import主程序中进行使用。
+    12306/stations.py:  生成的站台编码文件，需要import主程序中进行使用。
     12306/tickets.py:  是主程序，获取数据并进行查询显示。
     12306/setup.py:  打包工具，在终端下直接运行python setup.py install进行安装。
+oa: 主要用来实现加班申请功能。
+    oa/oa.py:  是主程序。
+    oa/setup.py:  打包工具。
