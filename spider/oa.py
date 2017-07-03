@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import time
 
-url = http://172.26.10.41/Programs/login/login.aspx
+url = 'http://172.26.10.41/Programs/login/login.aspx'
 username = input('请输入你的工号: ')
 password = input('请输入你的密码: ')
 overtimeReason = input('请输入你的加班事由: ')
