@@ -1,2 +1,0 @@
-/Users/daigouwei/work/Python3/venv.py3/lib/python3.6/site-packages/oa-0.0.0-py3.6.egg
-/Users/daigouwei/work/Python3/venv.py3/bin/oa
