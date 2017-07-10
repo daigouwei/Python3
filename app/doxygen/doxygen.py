@@ -3,8 +3,6 @@
 
 # 进行doxygen风格的注释，主要是函数声明和定义。
 
-import os
-from os import path
 import re
 
 def regular(patternName):
@@ -40,7 +38,7 @@ def annotation():
                         argList = regular('argAll').findall(arg)
                         data.insert(count, '    @param %s\n'%(argList[0][1]))
                         count += 1
-                        print(argList)
+                        # print(argList)
                     data.insert(count, '\n')
                     count += 1
                     del argument[:]
