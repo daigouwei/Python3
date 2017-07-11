@@ -48,7 +48,7 @@ def annotation(filePath):
                             data.insert(count, '    @param %s\n'%(argList[0][1]))
                             count += 1
                         except IndexError:
-                            print('[ERROR]请查看函数参数是否不符合一般的类型，如int xxx等!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n')
+                            print('[ERROR]请查看函数参数是否不符合一般的类型，如int*xxx等!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n')
                         finally:
                             pass
                         # print(argList)
@@ -64,7 +64,7 @@ def annotation(filePath):
     f.writelines(data)#按行写入数据，是直接覆盖源文件
     f.close()
 
-#获取当前目录下的所有子文件的绝对路径!!!!!zanshi meiyou shiyong
+#获取当前目录下的所有子文件的绝对路径!![暂时没有使用]
 def filePath():
     pwd = os.getcwd()
     for (dirpath, dirnames, filenames) in os.walk(pwd):
