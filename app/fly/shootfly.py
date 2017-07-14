@@ -6,6 +6,7 @@ from sys import exit
 # from pygame.locals import *
 import random
 
+"""
 pygame.init()
 screen = pygame.display.set_mode((480, 800))
 pygame.display.set_caption('SHOOT FLY')
@@ -24,3 +25,14 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+"""
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, bullet_img, init_pos):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = bullet_img
+        self.image.get_rect().midbottom = init_pos
+        self.speed = 10
+
+    def move(self):
+        self.image.get_rect().top -= self.speed
