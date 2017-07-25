@@ -8,10 +8,16 @@
 	<p>
 		Please enter your Name:<br>
 		{{ form.name(size=80) }}<br>
+		{% for error in form.errors.name %}
+		<span style="color: red;">[{{ error }}]</span>
+		{% endfor %}<br>
 	</p>
 	<p>
 		Password:<br>
-		{{ form.password }}
+		{{ form.password }}<br>
+		{% for error in form.errors.password %}
+		<span style="color: red;">[{{ error }}]</span>
+		{% endfor %}<br>
 	</p>
 	<p>{{ form.remember_me }} Remember Me?</p>
 	<p><input type="submit" value="Sign In"></p>
