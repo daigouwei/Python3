@@ -8,6 +8,7 @@ from app.init_app import app
 @app.route('/')
 @app.route('/index')
 def index():
+    print('###[flag4]###')
     user = {'username': 'daigouwei'}
     posts =[
     {
