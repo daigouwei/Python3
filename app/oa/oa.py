@@ -103,7 +103,7 @@ def commandLineInterface():
             selectTimeFrom.select_by_visible_text(qop[1])
             selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
             selectTimeTo.select_by_visible_text(qop[2])
-            time.sleep(delaytime)
+            time.sleep(int(delaytime))
             browser.find_element_by_id('btnAddLine').click()  #添加明细
             time.sleep(5)  #延时，防止提交按钮丢失
             browser.find_element_by_id('btnPost').click()  #提交
@@ -125,7 +125,7 @@ def commandLineInterface():
             selectTimeFrom.select_by_visible_text(qop[1])
             selectTimeTo = Select(browser.find_element_by_name('DropDownListTIME_TO'))
             selectTimeTo.select_by_visible_text(qop[2])
-            time.sleep(delaytime)
+            time.sleep(int(delaytime))
             browser.find_element_by_id('btnAddLine').click()  #添加明细
             time.sleep(5)  #延时，防止提交按钮丢失
             browser.find_element_by_id('btnPost').click()  #提交
