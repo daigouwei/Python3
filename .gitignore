@@ -1,6 +1,7 @@
 # Myself Python
 venv.py3
 remove.txt
+app.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
