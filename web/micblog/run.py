@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/env
 #-*- coding:utf-8 -*-
 
 from app import app

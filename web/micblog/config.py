@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/env
 #-*- coding:utf-8 -*-
 
 CARF_ENABLED = True      #激活跨站点请求伪造保护
