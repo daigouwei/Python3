@@ -2,6 +2,7 @@
 venv.py3
 remove.txt
 app.db
+db_repository
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
