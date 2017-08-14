@@ -23,7 +23,7 @@ class User(db.Model):
         return False
 
     def get_id(self):
-        return unicode(self.id)
+        return self.id
 
     @classmethod
     def login_check(cls, user_name):
