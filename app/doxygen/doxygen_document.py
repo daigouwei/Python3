@@ -11,7 +11,8 @@ import re
 #正则匹配
 def regular(patternName):
     if patternName=='funcAll':
-        pattern = re.compile(r'(^\w{1,}|^\w{1,}\s+\w{1,})\s+(\*\w+|\w+)\s*\(\s*(.*?)\s*\)(\n|;\n)', re.S)#读取每行并匹配函数整体
+        # pattern = re.compile(r'(^\w{1,}|^\w{1,}\s+\w{1,})\s+(\*\w+|\w+)\s*\(\s*(.*?)\s*\)(\n|;\n)', re.S)#读取每行并匹配函数整体
+        pattern = re.compile(r'(^\w{1,}|^\w{1,}\s+\w{1,})\s+(\*\w+|\w+)\s*\(', re.S)#读取每行并匹配函数整体,用来匹配分行的函数
     elif patternName=='argAll':
         pattern = re.compile(r'.* (\*|\**|)(\w{1,})', re.S)#匹配split好的参数，使用的是将参数取出之后split再正则匹配去除空格，更具有一般性
     return pattern
@@ -23,8 +24,6 @@ def document(filePath):
     data = f.readlines()#按行读取到list
     # print(data)
     count = 0#计数用来推动list的查找插入，避免重复
-    argument = []
-    argumentSplit = []
     for lineData in data[count:]:
         funcDataList = regular('funcAll').findall(lineData)
         if funcDataList:
