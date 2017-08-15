@@ -34,15 +34,18 @@ def index():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        print(1)
         return redirect('/index')
     form = LoginForm()
     if form.validate_on_submit():
+        print(2)
         user = User.login_check(request.form.get('user_name'))
         if user:
             login_user(user)
             user.last_seen = datetime.datetime.now()
 
             try:
+                print(3)
                 db.session.add(user)
                 db.session.commit()
             except:
@@ -59,6 +62,7 @@ def login():
     #    flash('passwd: ' + str(form.password.data))
     #    flash('remember_me: ' + str(form.remember_me.data))
     #    return redirect('/index')           #告诉网页浏览器引导到一个不同的页面而不是请求的页面。
+    print(4)
     return render_template('login.html',
                            title = 'Sign In',
                            form = form)

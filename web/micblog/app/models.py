@@ -28,7 +28,7 @@ class User(db.Model):
     @classmethod
     def login_check(cls, user_name):
         user = cls.query.filter(db.or_(
-            User.nickname == user_name, User.email == user_name)).first()
+            User.nickname == user_name)).first()
         if not user:
             return None
         return user
