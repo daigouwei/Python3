@@ -10,9 +10,11 @@ smalltool/modifier.py: 主要用来自动修改混乱的N集电视剧文件名�
 oa: 主要用来实现加班申请功能。
     oa/oa.py:  是主程序。
     oa/setup.py:  打包工具。
-doxygen/doxygen.py:  实现C语言函数声明和定义的自动单文件批量注释。
-     		     Ubuntu14.04以上的一般都有python3.5，直接运行即可。如果是Ubuntu12.04请查看Python版本，安装python3.5才可以运行。
+doxygen:
+     doxygen_annotation.py:  实现C语言函数声明和定义的自动单文件批量注释。
+     		     Ubuntu14.04以上的一般都有python3.4，直接运行即可。如果是Ubuntu12.04请查看Python版本，安装python3.4才可以运行。
     		     一般使用方式：将doxygen.py放到xxxxxxxx/profile目录下，使用find ./ -name '*.c' | xargs ./doxygen.py或./doxygen.py <单文件相对路径>
     		     未包含的处理有：（1）分行写的函数定义或者声明
-                                    （2）函数参数不符合一般规则，会有异常打印信息提示
-fly/shootfly.py:  
+                              （2）函数参数不符合一般规则，会有异常打印信息提示
+     doxygen_document.py:  将doxygen风格的注释生成网页document，由于这里不需要读取函数参数，所以也可以处理分行的函数。
+fly/shootfly.py:  使用pygame实现一个打飞机的小游戏.
