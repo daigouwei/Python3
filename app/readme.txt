@@ -17,4 +17,5 @@ doxygen:
     		     未包含的处理有：（1）分行写的函数定义或者声明
                               （2）函数参数不符合一般规则，会有异常打印信息提示
      doxygen_document.py:  将doxygen风格的注释生成网页document，由于这里不需要读取函数参数，所以也可以处理分行的函数。
+     doxygen_table.py:  将表格格式化。
 fly/shootfly.py:  使用pygame实现一个打飞机的小游戏.
