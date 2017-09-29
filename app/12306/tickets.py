@@ -104,7 +104,7 @@ def prettyPrint(data):
 
 @log
 def getWebData(date, fromStation, toStation):
-    url = 'https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date={}&leftTicketDTO.from_station={}&leftTicketDTO.to_station={}&purpose_codes=ADULT'.format(date, fromStation, toStation)
+    url = 'https://kyfw.12306.cn/otn/leftTicket/queryX?leftTicketDTO.train_date={}&leftTicketDTO.from_station={}&leftTicketDTO.to_station={}&purpose_codes=ADULT'.format(date, fromStation, toStation)
     requests.packages.urllib3.disable_warnings()
     response = requests.get(url, verify=False)
     # print(response.text)
