@@ -6,3 +6,4 @@ base       学习Python基础知识
 everyday   每天一个小程序  
 spider     爬虫相关的学习  
 web        web框架的相关学习  
+tensorflow 深度学习框架  
